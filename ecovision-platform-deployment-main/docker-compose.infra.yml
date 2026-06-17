@@ -1,0 +1,79 @@
+name: ecovision-infra
+
+# Hạ tầng dùng chung (Postgres/Redis/MinIO/MediaMTX).
+# Tất cả nối vào network ngoài "ecovision-net" để backend/ai/frontend gọi tới.
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: ecovision-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-ecovision}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ecovision}
+      POSTGRES_DB: ${POSTGRES_DB:-ecovision}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks: [ecovision-net]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ecovision}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: ecovision-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks: [ecovision-net]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: ecovision-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-minioadmin}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - miniodata:/data
+    networks: [ecovision-net]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mediamtx:
+    image: bluenviron/mediamtx:latest
+    container_name: ecovision-mediamtx
+    restart: unless-stopped
+    ports:
+      - "8554:8554"       # RTSP
+      - "8889:8889"       # WebRTC (signaling/WHEP)
+      - "8189:8189/udp"   # WebRTC (ICE/media UDP)
+      - "8888:8888"       # HLS
+      - "9997:9997"       # API
+    volumes:
+      - ./mediamtx.yml:/mediamtx.yml
+    networks: [ecovision-net]
+
+volumes:
+  pgdata:
+  miniodata:
+
+networks:
+  ecovision-net:
+    external: true

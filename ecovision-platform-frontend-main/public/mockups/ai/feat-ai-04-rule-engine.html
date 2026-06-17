@@ -1,0 +1,988 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Quản lý Luật AI - EcoVision</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#fc763c",
+                        "surface-container": "#f0eded",
+                        "on-tertiary-container": "#ffc2a7",
+                        "inverse-on-surface": "#f3f0ef",
+                        "info-blue": "#0288D1",
+                        "surface-container-high": "#eae7e7",
+                        "on-surface": "#1c1b1b",
+                        "on-primary-fixed-variant": "#004491",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#313030",
+                        "primary-fixed-dim": "#acc7ff",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-variant": "#e5e2e1",
+                        "tertiary-container": "#983c00",
+                        "on-background": "#1c1b1b",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-secondary-fixed": "#370e00",
+                        "error-red": "#D32F2F",
+                        "on-secondary-fixed-variant": "#7f2b00",
+                        "inverse-primary": "#acc7ff",
+                        "surface": "#fcf9f8",
+                        "on-secondary-container": "#621f00",
+                        "on-primary-container": "#bbd0ff",
+                        "eco-green": "#2D6A4F",
+                        "surface-dim": "#dcd9d9",
+                        "tertiary-fixed": "#ffdbcc",
+                        "secondary-fixed-dim": "#ffb599",
+                        "secondary-fixed": "#ffdbce",
+                        "secondary": "#a73a00",
+                        "on-tertiary-fixed": "#351000",
+                        "on-surface-variant": "#424752",
+                        "background": "#fcf9f8",
+                        "primary": "#003f87",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#727784",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#722b00",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c2c6d4",
+                        "primary-fixed": "#d7e2ff",
+                        "surface-bright": "#fcf9f8",
+                        "error": "#ba1a1a",
+                        "surface-gray": "#F8F9FA",
+                        "on-primary-fixed": "#001a40",
+                        "success-green": "#388E3C",
+                        "primary-container": "#0056b3",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#115cb9",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-shadow {
+            box-shadow: 0px 10px 25px rgba(26, 26, 26, 0.05);
+        }
+        .bento-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .bento-card:hover {
+            border-color: #0056b3;
+        }
+        .roi-overlay {
+            border: 2px solid #0056b3;
+            background: rgba(0, 86, 179, 0.2);
+            position: absolute;
+            cursor: move;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- Sidebar Navigation -->
+
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center w-full px-margin-desktop py-4 sticky top-0 z-50  bg-surface shadow-sm">
+<div class="flex items-center bg-surface-container-low rounded-full px-4 py-2 w-96">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md w-full" placeholder="Tìm kiếm luật hoặc camera..." type="text">
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="relative hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden lg:block">
+<p class="font-label-md text-on-surface">Kỹ sư Hệ thống</p>
+<p class="text-[10px] text-outline uppercase tracking-wider">Administrator</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white font-bold">
+                    AD
+                </div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class=" p-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-primary">Quản lý Luật AI - EcoVision</h1>
+<p class="text-body-lg text-on-surface-variant mt-2">Thiết lập và giám sát các quy tắc phân tích thông minh cho hệ thống an ninh.</p>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg flex items-center gap-2 font-label-md transition-all active:scale-95 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    Tạo Luật Mới
+                </button>
+</div>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Rule Builder (Left Section - Form) -->
+<section class="col-span-12 xl:col-span-5 flex flex-col gap-6">
+<div class="bento-card custom-shadow p-8 rounded-xl h-full">
+<div class="flex items-center gap-2 mb-6 text-primary">
+<span class="material-symbols-outlined" data-icon="auto_fix">auto_fix</span>
+<h2 class="font-headline-lg text-headline-lg-mobile font-semibold">Trình Tạo Luật AI</h2>
+</div>
+<form class="space-y-8">
+<!-- KHI -->
+<div class="space-y-4">
+<label class="flex items-center gap-2 font-label-md text-on-surface-variant">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-[10px] font-bold">KHI</span>
+                                    SỰ KIỆN XẢY RA
+                                </label>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<p class="text-[11px] text-outline font-bold uppercase ml-1">Mô hình AI</p>
+<select class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-primary text-body-md py-3 px-4 bg-surface-container-lowest">
+<option>ppe-v1 (Bảo hộ lao động)</option>
+<option>fire-smoke-v2 (Hỏa hoạn)</option>
+<option>intrusion-v4 (Xâm nhập)</option>
+</select>
+</div>
+<div class="space-y-1">
+<p class="text-[11px] text-outline font-bold uppercase ml-1">Nhãn nhận diện</p>
+<select class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-primary text-body-md py-3 px-4 bg-surface-container-lowest">
+<option>no_helmet (Không mũ)</option>
+<option>no_vest (Không áo khoác)</option>
+<option>person (Người)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- VÀ -->
+<div class="space-y-4">
+<label class="flex items-center gap-2 font-label-md text-on-surface-variant">
+<span class="bg-secondary/10 text-secondary px-2 py-0.5 rounded text-[10px] font-bold">VÀ</span>
+                                    ĐIỀU KIỆN ĐỘ TIN CẬY
+                                </label>
+<div class="bg-surface-container-low p-4 rounded-lg">
+<div class="flex justify-between mb-2">
+<span class="text-label-sm">Ngưỡng Confidence: <span class="text-primary font-bold">0.85</span></span>
+<span class="text-label-sm text-outline">High Precision</span>
+</div>
+<input class="w-full h-2 bg-outline-variant rounded-lg appearance-none cursor-pointer accent-primary" max="1" min="0" step="0.05" type="range" value="0.85">
+</div>
+</div>
+<!-- TRONG -->
+<div class="space-y-4">
+<label class="flex items-center gap-2 font-label-md text-on-surface-variant">
+<span class="bg-eco-green/10 text-eco-green px-2 py-0.5 rounded text-[10px] font-bold">TRONG</span>
+                                    VÙNG &amp; THỜI GIAN
+                                </label>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<p class="text-[11px] text-outline font-bold uppercase ml-1">Khu vực (Zone)</p>
+<select class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-primary text-body-md py-3 px-4 bg-surface-container-lowest">
+<option>ZONE A (Sảnh chính)</option>
+<option>Toàn khung hình</option>
+<option>Hành lang kho</option>
+</select>
+</div>
+<div class="space-y-1">
+<p class="text-[11px] text-outline font-bold uppercase ml-1">Khung giờ</p>
+<div class="flex items-center gap-2">
+<input class="w-full border-outline-variant rounded-lg text-[13px] p-2 bg-surface-container-lowest" type="time" value="22:00">
+<span class="text-outline">→</span>
+<input class="w-full border-outline-variant rounded-lg text-[13px] p-2 bg-surface-container-lowest" type="time" value="06:00">
+</div>
+</div>
+</div>
+<div class="relative w-full aspect-video rounded-lg overflow-hidden border-2 border-dashed border-outline-variant group">
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10">
+<button class="bg-white text-primary px-4 py-2 rounded-full font-label-md shadow-lg flex items-center gap-2" type="button">
+<span class="material-symbols-outlined" data-icon="polyline">polyline</span>
+                                            Vẽ Vùng ROI
+                                        </button>
+</div>
+<img class="w-full h-full object-cover" data-alt="A professional industrial warehouse interior viewed through a high-definition security camera lens. The scene is brightly lit with overhead LED lights, casting clean shadows on the polished concrete floor. In the center, a digital semi-transparent blue rectangular zone is overlaid on the video feed, representing a Region of Interest for AI monitoring. The overall aesthetic is high-tech, precise, and secure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfVnHyNIz6Q2yBtVLgS7Uu1pIAsaNkIQJQuOZqAFXEGxWPUxo5TatSgmGGtXfbcx5lFOEo3QWuNFzpbtvkB0rIVz9tgJIxm87yMjdR_c7EwW7SAECKqsSmy7PbZ8LY4YsbNdwn4tYgfy1ZZp552pmuG2D1ZYxV1RTxpbp6TsEsbntF3Ph5ffR7zrQHX2XXSuhCV0uRD8jyis5gbqm9lXCYoTxntHFxafClFUff0wMS65N3C9xQXnDowVISUSp4l95mHGTtC8ctbg">
+<div class="roi-overlay" style="top: 20%; left: 30%; width: 40%; height: 50%;"></div>
+</div>
+</div>
+<!-- DEBOUNCE -->
+<div class="space-y-4">
+<label class="flex items-center gap-2 font-label-md text-on-surface-variant">
+<span class="bg-info-blue/10 text-info-blue px-2 py-0.5 rounded text-[10px] font-bold">DEBOUNCE</span>
+                                    THỜI GIAN TRỄ
+                                </label>
+<div class="flex items-center gap-4">
+<input class="w-32 border-outline-variant rounded-lg focus:border-primary focus:ring-primary text-body-md py-3 px-4 bg-surface-container-lowest" min="1" type="number" value="5">
+<span class="text-body-md text-on-surface-variant">giây (Xác nhận sau 5 giây duy trì trạng thái)</span>
+</div>
+</div>
+<hr class="border-outline-variant opacity-30">
+<!-- HÀNH ĐỘNG -->
+<div class="space-y-4">
+<label class="flex items-center gap-2 font-label-md text-on-surface-variant">
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded text-[10px] font-bold">HÀNH ĐỘNG</span>
+                                    PHẢN HỒI HỆ THỐNG
+                                </label>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<p class="text-[11px] text-outline font-bold uppercase ml-1">Mức cảnh báo</p>
+<select class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-primary text-body-md py-3 px-4 bg-surface-container-lowest">
+<option>Info (Thông tin)</option>
+<option selected="">Warning (Cảnh báo)</option>
+<option>Critical (Nghiêm trọng)</option>
+</select>
+</div>
+<div class="space-y-1">
+<p class="text-[11px] text-outline font-bold uppercase ml-1">Áp dụng cho Camera</p>
+<div class="relative">
+<select class="w-full border-outline-variant rounded-lg focus:border-primary focus:ring-primary text-body-md py-3 px-4 bg-surface-container-lowest">
+<option>Chọn camera...</option>
+<option>Tất cả Camera</option>
+<option>Camera 01 - Sảnh</option>
+<option>Camera 02 - Kho</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<div class="flex gap-4 pt-4">
+<button class="flex-1 bg-primary text-white py-4 rounded-xl font-bold hover:bg-primary-container transition-all" type="submit">Lưu Luật AI</button>
+<button class="px-8 border border-outline-variant rounded-xl text-on-surface-variant hover:bg-surface-container transition-all" type="reset">Hủy</button>
+</div>
+</form>
+</div>
+</section>
+<!-- Rule Listing Table (Right Section) -->
+<section class="col-span-12 xl:col-span-7 flex flex-col gap-6">
+<div class="bento-card custom-shadow rounded-xl flex flex-col h-full overflow-hidden">
+<div class="p-8 flex justify-between items-center bg-surface-container-lowest border-b border-outline-variant/30">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<h2 class="font-headline-lg text-headline-lg-mobile font-semibold">Danh Sách Luật Hiện Có</h2>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors border border-outline-variant/30">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-lg transition-colors border border-outline-variant/30">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low text-label-sm text-outline uppercase tracking-wider">
+<tr>
+<th class="px-8 py-4 font-bold">Tên Luật</th>
+<th class="px-6 py-4 font-bold">Điều kiện AI</th>
+<th class="px-6 py-4 font-bold">Mức độ</th>
+<th class="px-6 py-4 font-bold">Phạm vi Cam</th>
+<th class="px-8 py-4 font-bold text-center">Trạng thái</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20 font-body-md">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Không mũ BH</span>
+<span class="text-label-sm text-outline">ID: RULE-001</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<code class="bg-surface-container-high px-2 py-1 rounded text-xs text-primary font-mono">no_helmet &amp; conf &gt; 0.7</code>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5"></span>
+                                                WARNING
+                                            </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="videocam">videocam</span>
+                                                3 Cam
+                                            </div>
+</td>
+<td class="px-8 py-5 text-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Phát hiện Cháy</span>
+<span class="text-label-sm text-outline">ID: RULE-002</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<code class="bg-surface-container-high px-2 py-1 rounded text-xs text-primary font-mono">fire &amp; conf &gt; 0.8</code>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+<span class="w-1.5 h-1.5 rounded-full bg-red-600 mr-1.5 animate-pulse"></span>
+                                                CRITICAL
+                                            </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="hub">hub</span>
+                                                Tất cả
+                                            </div>
+</td>
+<td class="px-8 py-5 text-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors opacity-70">
+<td class="px-8 py-5">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface">Xâm nhập đêm</span>
+<span class="text-label-sm text-outline">ID: RULE-003</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<code class="bg-surface-container-high px-2 py-1 rounded text-xs text-primary font-mono">person in ZONE A &amp; 22-06</code>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5"></span>
+                                                WARNING
+                                            </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="videocam">videocam</span>
+                                                2 Cam
+                                            </div>
+</td>
+<td class="px-8 py-5 text-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-6 bg-surface-container-low flex justify-between items-center text-label-sm">
+<span class="text-outline">Hiển thị 1-3 trong 24 quy tắc</span>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant/30 rounded bg-white hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-2 border border-outline-variant/30 rounded bg-white hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Rule Performance Insights Bento -->
+<div class="grid grid-cols-2 gap-gutter">
+<div class="bento-card custom-shadow p-6 rounded-xl flex items-center gap-4 border-l-4 border-l-primary">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+</div>
+<div>
+<p class="text-outline text-[11px] font-bold uppercase">Hiệu suất Phân tích</p>
+<p class="text-headline-lg font-bold text-on-surface">98.4%</p>
+<p class="text-[10px] text-eco-green font-bold">↑ 2.1% so với tuần trước</p>
+</div>
+</div>
+<div class="bento-card custom-shadow p-6 rounded-xl flex items-center gap-4 border-l-4 border-l-secondary">
+<div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="notification_important">notification_important</span>
+</div>
+<div>
+<p class="text-outline text-[11px] font-bold uppercase">Tổng Cảnh báo 24h</p>
+<p class="text-headline-lg font-bold text-on-surface">1,420</p>
+<p class="text-[10px] text-error-red font-bold">↑ 12% lưu lượng bất thường</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Background Pattern/Atmosphere -->
+<div class="fixed inset-0 -z-10 opacity-20 pointer-events-none">
+<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid" patternUnits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#003f87" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<script>
+        // Micro-interactions for UI
+        document.querySelectorAll('select, input').forEach(el => {
+            el.addEventListener('focus', () => {
+                el.parentElement.classList.add('scale-[1.01]');
+            });
+            el.addEventListener('blur', () => {
+                el.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Simple interactive slider display
+        const range = document.querySelector('input[type="range"]');
+        const rangeVal = range.previousElementSibling.querySelector('.text-primary');
+        range.addEventListener('input', (e) => {
+            rangeVal.textContent = e.target.value;
+        });
+
+        // ROI Drag Interaction (Simplified mockup)
+        const roi = document.querySelector('.roi-overlay');
+        let isDragging = false;
+        roi.addEventListener('mousedown', () => isDragging = true);
+        window.addEventListener('mouseup', () => isDragging = false);
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                // Logic would go here for a real implementation
+            }
+        });
+    </script>
+</body></html>
+
+
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EcoVision - Quản lý Luật AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#313030",
+                    "surface-variant": "#e5e2e1",
+                    "on-tertiary-container": "#ffc2a7",
+                    "on-secondary-fixed-variant": "#7f2b00",
+                    "inverse-primary": "#acc7ff",
+                    "eco-green": "#2D6A4F",
+                    "tertiary": "#722b00",
+                    "surface-container-high": "#eae7e7",
+                    "inverse-on-surface": "#f3f0ef",
+                    "success-green": "#388E3C",
+                    "on-primary-fixed": "#001a40",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#ffb694",
+                    "background": "#fcf9f8",
+                    "surface": "#fcf9f8",
+                    "on-tertiary-fixed": "#351000",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-primary-fixed-variant": "#004491",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed-dim": "#acc7ff",
+                    "tertiary-container": "#983c00",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1c1b1b",
+                    "secondary": "#a73a00",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d7e2ff",
+                    "primary-container": "#0056b3",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-secondary-container": "#621f00",
+                    "info-blue": "#0288D1",
+                    "error-red": "#D32F2F",
+                    "surface-gray": "#F8F9FA",
+                    "outline-variant": "#c2c6d4",
+                    "surface-container-low": "#f6f3f2",
+                    "surface-container": "#f0eded",
+                    "outline": "#727784",
+                    "secondary-fixed": "#ffdbce",
+                    "on-background": "#1c1b1b",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#115cb9",
+                    "surface-bright": "#fcf9f8",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#ffb599",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "on-surface-variant": "#424752",
+                    "on-secondary-fixed": "#370e00",
+                    "surface-dim": "#dcd9d9",
+                    "primary": "#003f87",
+                    "secondary-container": "#fc763c",
+                    "on-primary-container": "#bbd0ff",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #f8f9fa;
+            background-image: radial-gradient(#d1d5db 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c2c6d4;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar (As defined in JSON) -->
+<nav class="h-screen w-64 fixed left-0 top-0 flex flex-col bg-surface border-r border-outline-variant shadow-sm z-50">
+<div class="p-6 flex items-center gap-3">
+<img alt="EcoVision Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7hZh208Kv82-f3a_CW6YDFuFs4QXDJmezQrVU8lgQL0ohcAqeTwfbYxC6UQWFC7TW6kfcXUEGjGgIHfPb4BWr89G9LX8go2rce57U5uxtVObF2-YEtfKe5heMz1PCwwxmj22s0NW1JgwZN2dkp8pAVy0YxpBEMAiZm53-EGwZlYvz84nIPZuRF98OU0kB2qnhi4gEMNvwvSeDFVXuFqzLXXXUyU03mGWq6ZDTC-Ig6T95XUaKt6jRIB5tud32RQK2mj9_aqQ2OQ">
+</div>
+<div class="mt-4 flex-1">
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="router">router</span>
+                Devices
+            </a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="insights">insights</span>
+                AI Analytics
+            </a>
+<!-- Active State: Rules -->
+<a class="flex items-center px-6 py-3 text-primary bg-primary-container/10 border-r-4 border-primary font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="policy">policy</span>
+                Rules
+            </a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+</nav>
+<!-- TopNavBar (As defined in JSON) -->
+<header class="fixed top-0 right-0 z-40 flex justify-between items-center h-16 px-6 w-[calc(100%-16rem)]  bg-surface border-b border-outline-variant">
+<div class="flex items-center w-1/2">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-label-md focus:ring-2 focus:ring-primary/20" placeholder="Tìm kiếm hệ thống..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="apps">apps</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant ml-2 cursor-pointer">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC79jH4Xwd4TJZMs7-bOhGKSmAmRIq0fwZGa3O2yK8JnrlAoj7rNQaQ8l2x0SzxCfyUtDx0l-Ns6m4RAxOJycWUVGnx9W8uvyounjKaxbUoVxtmogAjXEOgwbKu5Al0ibBBBooGsw26whjZ-7O2ITOaUNk0A4KEiuDegcpla1WfVWEZ0LwLk05LiQZtxa5mwHun0mIjkWa2_FT_qBT4z_Sh8MP6toLpJpdy3PLLrH7sRW_3kGNGEgx8-L2moIVKhX6RijIIVJA-iQ">
+</div>
+</div>
+</header>
+<!-- Main Content Shell -->
+<main class=" pt-16 min-h-screen">
+<div class="p-8 flex gap-gutter max-w-[1600px] mx-auto">
+<!-- Left Column: Rule Builder (40%) -->
+<section class="w-[40%] flex flex-col gap-6">
+<div class="bg-white rounded-xl border border-outline-variant shadow-[0px_10px_25px_rgba(26,26,26,0.05)] overflow-hidden flex flex-col">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h2 class="font-headline-lg text-[20px] flex items-center gap-2 text-primary">
+                            Trình Tạo Luật AI
+                            <span class="material-symbols-outlined text-on-surface-variant text-[18px] cursor-pointer" data-icon="edit">edit</span>
+</h2>
+</div>
+<div class="p-6 flex flex-col gap-8 max-h-[calc(100vh-280px)] overflow-y-auto custom-scrollbar">
+<!-- Section 1: Event -->
+<div>
+<h3 class="font-label-md text-label-md text-outline uppercase mb-3 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                KHI SỰ KIỆN XẢY RA
+                            </h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Mô hình AI</label>
+<select class="w-full rounded-lg border-outline-variant font-body-md text-body-md focus:border-primary focus:ring-primary/20">
+<option>ppe-v1</option>
+<option>fire-v2</option>
+<option>intrusion-v4</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Nhãn nhận diện</label>
+<select class="w-full rounded-lg border-outline-variant font-body-md text-body-md focus:border-primary focus:ring-primary/20">
+<option>no_helmet</option>
+<option>person</option>
+<option>fire</option>
+<option>smoke</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Section 2: Confidence -->
+<div>
+<h3 class="font-label-md text-label-md text-outline uppercase mb-3 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                ĐIỀU KIỆN ĐỘ TIN CẬY
+                            </h3>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Ngưỡng Confidence</label>
+<span class="font-label-md text-primary bg-primary-container/10 px-2 py-0.5 rounded">0.70</span>
+</div>
+<input class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" max="1" min="0" step="0.01" type="range" value="0.70">
+</div>
+</div>
+<!-- Section 3: Zone & Time -->
+<div>
+<h3 class="font-label-md text-label-md text-outline uppercase mb-3 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                VÙNG &amp; THỜI GIAN
+                            </h3>
+<div class="rounded-lg border border-outline-variant overflow-hidden relative mb-4">
+<img alt="Security Preview" class="w-full aspect-video object-cover" data-alt="A professional security camera viewpoint of a construction site at dusk with industrial lights. A semi-transparent blue bounding box overlay marks a specific zone of interest on the ground near the entrance. The visual style is high-definition, corporate security footage aesthetic with a calm, watchful mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFwjlt0Jaec2WyGHlDwlgXyfGUgb3ZOBz_dj_GOE8AoMAwFskNZB4Ue2_JwtqFysI3B06Py7t6WsTjj6TU7O9rQeD27CGXQEmuYfaZXr9nEWxEYH6FbyjK62jk-XgOpctQQz82MT96Daxr-f886Fdu6JtO1O-QEJPCYmPZMbaCJTz3FhtbnFadeCIOhkC7s2m_72Azb9DVVkofrnhg7bjPY4IygZ6UpRVqxqRSCaQ2i0KPpClQ6wguUfphXJqlRAH-_DjSkXsNHg">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-48 h-32 border-2 border-primary bg-primary/10 flex items-start justify-start p-1">
+<span class="text-[8px] bg-primary text-white px-1">Zone 1</span>
+</div>
+</div>
+<div class="absolute bottom-3 right-3 flex gap-2">
+<button class="flex items-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur rounded shadow-md font-label-md text-label-md hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="polyline">polyline</span>
+                                        Vẽ vùng
+                                    </button>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Khung giờ hoạt động</label>
+<div class="flex items-center gap-3">
+<input class="flex-1 rounded-lg border-outline-variant font-body-md text-body-md focus:ring-primary/20" type="time" value="22:00">
+<span class="text-outline">đến</span>
+<input class="flex-1 rounded-lg border-outline-variant font-body-md text-body-md focus:ring-primary/20" type="time" value="06:00">
+</div>
+</div>
+</div>
+<!-- Section 4: Debounce -->
+<div>
+<h3 class="font-label-md text-label-md text-outline uppercase mb-3 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                THỜI GIAN TRỄ
+                            </h3>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Debounce (giây)</label>
+<input class="w-full rounded-lg border-outline-variant font-body-md text-body-md focus:ring-primary/20" type="number" value="30">
+</div>
+</div>
+<!-- Section 5: Response -->
+<div>
+<h3 class="font-label-md text-label-md text-outline uppercase mb-3 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                PHẢN HỒI HỆ THỐNG
+                            </h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Mức cảnh báo</label>
+<select class="w-full rounded-lg border-outline-variant font-body-md text-body-md">
+<option>Warning</option>
+<option>Critical</option>
+<option>Info</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Áp dụng cho camera</label>
+<select class="w-full rounded-lg border-outline-variant font-body-md text-body-md">
+<option>All Cameras</option>
+<option>Camera A - Gate</option>
+<option>Camera B - Warehouse</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 border-t border-outline-variant bg-surface-container-lowest flex items-center justify-end gap-3">
+<button class="px-6 py-2.5 rounded border-1.5 border-primary text-primary font-label-md hover:bg-primary/5 transition-colors">
+                            Hủy
+                        </button>
+<button class="px-8 py-2.5 rounded bg-primary text-white font-label-md hover:bg-primary/90 transition-all shadow-md active:opacity-80">
+                            Lưu Luật AI
+                        </button>
+</div>
+</div>
+</section>
+<!-- Right Column: Rule List (60%) -->
+<section class="w-[60%] flex flex-col">
+<div class="bg-white rounded-xl border border-outline-variant shadow-[0px_10px_25px_rgba(26,26,26,0.05)] flex flex-col h-full overflow-hidden">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h2 class="font-headline-lg text-[20px] text-on-surface">Danh Sách Luật Hiện Có</h2>
+<button class="flex items-center gap-2 px-4 py-2 bg-eco-green text-white rounded font-label-md shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                            Tạo Luật Mới
+                        </button>
+</div>
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider">Tên Luật</th>
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider">Điều kiện AI</th>
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider">Mức độ</th>
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider">Phạm vi Cam</th>
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider">Trạng thái</th>
+<th class="px-6 py-4 font-label-md text-outline uppercase tracking-wider"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-5">
+<div class="font-label-md text-on-surface">Không mũ BH</div>
+<div class="text-[12px] text-on-surface-variant">Cập nhật: 2 giờ trước</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1 font-body-md text-on-surface-variant">
+<span class="bg-surface-container-high px-1.5 py-0.5 rounded text-[12px]">no_helmet</span>
+<span class="text-outline">&amp;</span>
+<span class="bg-surface-container-high px-1.5 py-0.5 rounded text-[12px]">conf &gt; 0.7</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-secondary-container/20 text-secondary-fixed-dim font-label-sm border border-secondary/20">
+                                            Warning
+                                        </span>
+</td>
+<td class="px-6 py-5 font-body-md text-on-surface-variant">3 Cam</td>
+<td class="px-6 py-5">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-5">
+<div class="font-label-md text-on-surface">Phát hiện Cháy</div>
+<div class="text-[12px] text-on-surface-variant">Cập nhật: 1 ngày trước</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-1 font-body-md text-on-surface-variant">
+<span class="bg-surface-container-high px-1.5 py-0.5 rounded text-[12px]">fire</span>
+<span class="text-outline">&amp;</span>
+<span class="bg-surface-container-high px-1.5 py-0.5 rounded text-[12px]">conf &gt; 0.8</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-error-container text-error-red font-label-sm border border-error/20">
+                                            Critical
+                                        </span>
+</td>
+<td class="px-6 py-5 font-body-md text-on-surface-variant">Tất cả</td>
+<td class="px-6 py-5">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/30 transition-colors opacity-75 grayscale-[0.5]">
+<td class="px-6 py-5">
+<div class="font-label-md text-on-surface">Xâm nhập đêm</div>
+<div class="flex items-center gap-1 text-[11px] text-error-red mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>
+                                            Model disabled
+                                        </div>
+</td>
+<td class="px-6 py-5">
+<div class="flex flex-col gap-1 font-body-md text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="bg-surface-container-high px-1.5 py-0.5 rounded text-[12px]">person in ZONE</span>
+</div>
+<div class="text-[12px] italic text-outline">22:00 - 06:00</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm border border-outline-variant">
+                                            Warning
+                                        </span>
+</td>
+<td class="px-6 py-5 font-body-md text-on-surface-variant">2 Cam</td>
+<td class="px-6 py-5">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-outline-variant bg-surface-container-low flex justify-between items-center px-6">
+<span class="text-label-sm text-on-surface-variant">Đang hiển thị 3 luật AI</span>
+<div class="flex items-center gap-2">
+<button class="p-1.5 rounded hover:bg-surface-container-high disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined text-[20px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<span class="text-label-md font-bold text-primary">1</span>
+<button class="p-1.5 rounded hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[20px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Subtle Insight Card Below Table -->
+<div class="mt-6 p-4 rounded-xl border border-primary/20 bg-primary/5 flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div>
+<h4 class="font-label-md text-primary mb-1">Gợi ý từ Eco-AI</h4>
+<p class="font-body-md text-on-surface-variant text-[14px]">
+                            Chúng tôi nhận thấy tỷ lệ False Positive cao cho luật 'Không mũ BH' trên Camera B. Bạn có thể cân nhắc tăng Ngưỡng Confidence lên <strong class="text-primary">0.82</strong> để giảm thiểu cảnh báo ảo.
+                        </p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                const valueSpan = e.target.parentElement.querySelector('span');
+                if (valueSpan) {
+                    valueSpan.textContent = parseFloat(e.target.value).toFixed(2);
+                }
+            });
+        });
+
+        // Toggle handling
+        document.querySelectorAll('input[type="checkbox"]').forEach(toggle => {
+            toggle.addEventListener('change', (e) => {
+                const row = e.target.closest('tr');
+                if (e.target.checked) {
+                    row.classList.remove('opacity-75', 'grayscale-[0.5]');
+                } else {
+                    row.classList.add('opacity-75', 'grayscale-[0.5]');
+                }
+            });
+        });
+    </script>
+</body></html>

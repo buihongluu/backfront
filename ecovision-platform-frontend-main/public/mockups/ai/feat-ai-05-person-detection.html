@@ -1,0 +1,345 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EcoVision Pro - Camera AI Configuration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#727784",
+                    "surface-tint": "#115cb9",
+                    "outline-variant": "#c2c6d4",
+                    "tertiary-fixed-dim": "#ffb694",
+                    "primary-fixed": "#d7e2ff",
+                    "background": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "surface-dim": "#dcd9d9",
+                    "surface-container": "#f0eded",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#7f2b00",
+                    "info-blue": "#0288D1",
+                    "on-primary-fixed": "#001a40",
+                    "primary": "#003f87",
+                    "surface-bright": "#fcf9f8",
+                    "on-tertiary-container": "#ffc2a7",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#ffb599",
+                    "on-surface": "#1c1b1b",
+                    "eco-green": "#2D6A4F",
+                    "surface-container-high": "#eae7e7",
+                    "secondary-container": "#fc763c",
+                    "error-red": "#D32F2F",
+                    "tertiary": "#722b00",
+                    "inverse-surface": "#313030",
+                    "tertiary-fixed": "#ffdbcc",
+                    "on-secondary-container": "#621f00",
+                    "tertiary-container": "#983c00",
+                    "on-primary-fixed-variant": "#004491",
+                    "on-secondary-fixed": "#370e00",
+                    "surface-gray": "#F8F9FA",
+                    "secondary-fixed": "#ffdbce",
+                    "inverse-primary": "#acc7ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#351000",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "surface": "#fcf9f8",
+                    "success-green": "#388E3C",
+                    "on-surface-variant": "#424752",
+                    "secondary": "#a73a00",
+                    "surface-variant": "#e5e2e1",
+                    "primary-fixed-dim": "#acc7ff",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#bbd0ff",
+                    "primary-container": "#0056b3",
+                    "surface-container-low": "#f6f3f2",
+                    "on-background": "#1c1b1b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "base": "8px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .zone-overlay {
+            clip-path: polygon(15% 15%, 85% 15%, 85% 55%, 55% 85%, 15% 85%);
+            background-color: rgba(17, 92, 185, 0.25);
+            border: 2px solid #115cb9;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(194, 198, 212, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar -->
+
+<!-- Main Content Canvas -->
+<main class=" min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-margin-desktop w-full border-b border-outline-variant dark:border-outline bg-surface dark:bg-surface-dim sticky top-0 z-50 shadow-sm">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline cursor-pointer">arrow_back</span>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight">Cam bãi đỗ xe</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-label-md w-64 focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Search settings..." type="text">
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">apps</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed overflow-hidden border border-outline-variant">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged tech administrator in a modern office environment. He has a focused and confident expression, wearing a crisp navy suit. The lighting is bright and clean, emphasizing a corporate light-mode aesthetic with soft blue and grey tones in the background. High-quality corporate photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmIxgniyFMOGCV3kY8_Dgvx2_Kozplevk5iD4tkFVyiT7RnIXKmy3EV2XIMQyXBqvU8M0KXdgo-lr2E2rs5UynggJRGajFEqWHXAw4MeqCh0p3LRRJ5QqgGFvhW5vf5b2gGVqtOugU8vyPtZ8mwGrIEvgKzWoxtdhYVqc13BGkFn6za1z8GvMwvkzVWxTrUIEGNp_3F3vPa__Qcrrl05oJ0UbwOWmTHZxJpzxE9lsB_aGdJSHU6zSfBkvHJfpeeX-lnH7c_iM-9w">
+</div>
+</div>
+</div>
+</header>
+<!-- Configuration Section -->
+<section class="p-margin-desktop max-w-container-max mx-auto">
+<!-- Breadcrumbs / Tabs Navigation -->
+<div class="flex items-center gap-8 mb-8 border-b border-outline-variant">
+<button class="pb-3 text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors">General</button>
+<button class="pb-3 text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors">Network</button>
+<button class="pb-3 text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors">Storage</button>
+<button class="pb-3 text-primary font-bold font-label-md text-label-md border-b-2 border-primary">AI Analytics</button>
+<button class="pb-3 text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors">Events</button>
+</div>
+<!-- Page Header Area -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-1">AI Model Configuration</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Configure precision person detection and security zones for this device.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="px-4 py-2 bg-surface-container-high rounded-full flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-success-green animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Model: person-v1.0.0</span>
+</div>
+<div class="px-4 py-2 bg-primary-fixed rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+<span class="text-label-sm font-label-sm text-primary uppercase tracking-wider">Provider: CUDA</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="bento-grid">
+<!-- Main Control Panel (Left Column) -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Enable Toggle Card -->
+<div class="glass-card p-6 rounded-xl shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">person_search</span>
+</div>
+<span class="font-label-md text-label-md">Bật model person</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<p class="text-label-sm font-label-sm text-outline">Enable advanced AI heuristics to identify human subjects in the parking lot area.</p>
+</div>
+<!-- Confidence Slider Card -->
+<div class="glass-card p-6 rounded-xl shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-label-md text-label-md">Ngưỡng Confidence</h4>
+<span class="px-2 py-1 bg-surface-container text-primary font-bold text-label-sm rounded">85%</span>
+</div>
+<input class="w-full h-1.5 bg-outline-variant rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="0" type="range" value="85">
+<div class="flex justify-between mt-3 text-label-sm font-label-sm text-outline">
+<span>Loose (0%)</span>
+<span>Strict (100%)</span>
+</div>
+<div class="mt-4 p-3 bg-primary/5 border border-primary/10 rounded-lg flex gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">info</span>
+<p class="text-label-sm font-label-sm text-on-surface-variant italic">High confidence (R4) recommended for low-light environments.</p>
+</div>
+</div>
+<!-- Operating Hours Card -->
+<div class="glass-card p-6 rounded-xl shadow-sm">
+<h4 class="font-label-md text-label-md mb-4">Khung giờ hoạt động</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="flex-1">
+<label class="block text-label-sm font-label-sm text-outline mb-1">Start Time</label>
+<div class="relative">
+<input class="w-full px-3 py-2 bg-surface-gray border border-outline-variant rounded text-label-md focus:ring-2 focus:ring-primary/20" type="time" value="22:00">
+</div>
+</div>
+<div class="flex-1">
+<label class="block text-label-sm font-label-sm text-outline mb-1">End Time</label>
+<div class="relative">
+<input class="w-full px-3 py-2 bg-surface-gray border border-outline-variant rounded text-label-md focus:ring-2 focus:ring-primary/20" type="time" value="06:00">
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-primary text-white text-label-sm rounded-full">Mon</span>
+<span class="px-3 py-1 bg-primary text-white text-label-sm rounded-full">Tue</span>
+<span class="px-3 py-1 bg-primary text-white text-label-sm rounded-full">Wed</span>
+<span class="px-3 py-1 bg-primary text-white text-label-sm rounded-full">Thu</span>
+<span class="px-3 py-1 bg-primary text-white text-label-sm rounded-full">Fri</span>
+<span class="px-3 py-1 bg-surface-container-high text-outline text-label-sm rounded-full">Sat</span>
+<span class="px-3 py-1 bg-surface-container-high text-outline text-label-sm rounded-full">Sun</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Preview Panel (Right Column) -->
+<div class="col-span-12 lg:col-span-8">
+<div class="glass-card rounded-xl shadow-sm overflow-hidden flex flex-col h-full">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-white/50">
+<h4 class="font-label-md text-label-md">Vùng bảo vệ (Security Zones)</h4>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1 px-3 py-1.5 text-label-sm font-label-sm text-primary hover:bg-primary/5 rounded transition-colors">
+<span class="material-symbols-outlined text-[18px]">polyline</span>
+                                    Draw Zone
+                                </button>
+<button class="flex items-center gap-1 px-3 py-1.5 text-label-sm font-label-sm text-error-red hover:bg-error-container rounded transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                                    Clear
+                                </button>
+</div>
+</div>
+<div class="relative flex-1 bg-black min-h-[400px]">
+<!-- Main Camera Stream Placeholder -->
+<img alt="Camera Feed Parking Lot" class="w-full h-full object-cover opacity-80" data-alt="A high-angle surveillance camera perspective of a modern, organized outdoor parking lot at night. Crisp white parking lines are visible under bright LED pole lighting. The aesthetic is clean and high-tech, with a slight cool blue tint. Security zone overlays are not yet visible, focusing only on the sharp, detailed environmental feed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApHYTD7cUJaXM9wSSrvUGNAy8gyGcypw5fk4Uthl3KJ1Ko8ifOWOuf0HM2NNpqtepX-0JFEo_geLJaNe86v4ZkV6pco4pvppXn05ES8oHuZ7vmPJEoSZWVoCD_PouXC41k2ZzvC-E-aSg48qPtQZey8xNSfdoYW5C4jSiwk8hbyrrkx_OvEn5nu3k1zdxaD_RR9agLRoqdkp6ry7yQ9pLw8LfSrAzkkqQKUPotFU68TUdqMTX1V8nGCHiHVrIIHxScBBWvUMFA2Q">
+<!-- AI Overlay Layer -->
+<div class="absolute inset-0 pointer-events-none">
+<!-- Zone A Overlay -->
+<div class="zone-overlay absolute inset-0 m-12 group pointer-events-auto">
+<div class="absolute top-4 left-4 bg-primary text-white text-label-sm font-bold px-2 py-0.5 rounded shadow-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+                                        Zone A
+                                    </div>
+<div class="absolute inset-0 border-2 border-dashed border-primary/40 group-hover:border-primary transition-all"></div>
+</div>
+<!-- Detection Simulation -->
+<div class="absolute top-[60%] left-[40%] w-24 h-48 border-2 border-eco-green flex flex-col justify-start items-center">
+<div class="bg-eco-green text-white text-[10px] px-1 font-bold w-full text-center">Person 92%</div>
+</div>
+</div>
+<!-- Floating UI Elements -->
+<div class="absolute bottom-4 right-4 flex gap-2">
+<div class="px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-lg flex items-center gap-2 text-white border border-white/10">
+<span class="material-symbols-outlined text-[18px] text-eco-green" style="font-variation-settings: 'FILL' 1;">videocam</span>
+<span class="text-label-sm">LIVE - 4K 30FPS</span>
+</div>
+<div class="px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-lg flex items-center gap-2 text-white border border-white/10">
+<span class="material-symbols-outlined text-[18px] text-secondary-container">thermostat</span>
+<span class="text-label-sm">42°C</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low border-t border-outline-variant grid grid-cols-3 gap-4">
+<div class="flex flex-col">
+<span class="text-label-sm text-outline">Detected Objects (24h)</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">1,402</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm text-outline">Avg. Processing Time</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">12ms</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm text-outline">False Positives Rate</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-eco-green">0.42%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Global Actions -->
+<div class="mt-12 flex justify-between items-center border-t border-outline-variant pt-8">
+<div class="flex items-center gap-4 text-outline font-label-md text-label-md">
+<span class="material-symbols-outlined">update</span>
+<span>Last configuration sync: 2 minutes ago</span>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 border-2 border-primary text-primary font-bold rounded-full hover:bg-primary/5 transition-all scale-98 active:scale-95">Discard Changes</button>
+<button class="px-8 py-3 bg-primary text-white font-bold rounded-full hover:brightness-90 transition-all shadow-md shadow-primary/20 scale-98 active:scale-95">Lưu cấu hình</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple hover effects for zones
+        const zone = document.querySelector('.zone-overlay');
+        if (zone) {
+            zone.addEventListener('mouseenter', () => {
+                zone.style.backgroundColor = 'rgba(17, 92, 185, 0.4)';
+            });
+            zone.addEventListener('mouseleave', () => {
+                zone.style.backgroundColor = 'rgba(17, 92, 185, 0.25)';
+            });
+        }
+
+        // Toggle simulation logic
+        const toggle = document.querySelector('input[type="checkbox"]');
+        toggle.addEventListener('change', (e) => {
+            const statusIndicator = document.querySelector('.animate-pulse');
+            if (e.target.checked) {
+                statusIndicator.classList.add('bg-success-green');
+                statusIndicator.classList.remove('bg-outline-variant');
+            } else {
+                statusIndicator.classList.remove('bg-success-green');
+                statusIndicator.classList.add('bg-outline-variant');
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EcoVision | Employee Enrollment &amp; Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#1c1b1b",
+                        "surface-container-low": "#f6f3f2",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "surface-tint": "#115cb9",
+                        "success-green": "#388E3C",
+                        "on-primary-container": "#bbd0ff",
+                        "primary": "#003f87",
+                        "outline-variant": "#c2c6d4",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-container": "#f0eded",
+                        "background": "#fcf9f8",
+                        "outline": "#727784",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dcd9d9",
+                        "on-secondary-fixed-variant": "#7f2b00",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#313030",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface-variant": "#e5e2e1",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#351000",
+                        "on-primary-fixed": "#001a40",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#722b00",
+                        "surface-container-high": "#eae7e7",
+                        "secondary": "#a73a00",
+                        "secondary-container": "#fc763c",
+                        "primary-fixed-dim": "#acc7ff",
+                        "on-tertiary-container": "#ffc2a7",
+                        "on-secondary-container": "#621f00",
+                        "secondary-fixed": "#ffdbce",
+                        "error-red": "#D32F2F",
+                        "on-secondary-fixed": "#370e00",
+                        "info-blue": "#0288D1",
+                        "eco-green": "#2D6A4F",
+                        "inverse-on-surface": "#f3f0ef",
+                        "secondary-fixed-dim": "#ffb599",
+                        "on-surface": "#1c1b1b",
+                        "primary-fixed": "#d7e2ff",
+                        "inverse-primary": "#acc7ff",
+                        "tertiary-container": "#983c00",
+                        "primary-container": "#0056b3",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-gray": "#F8F9FA",
+                        "on-surface-variant": "#424752",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#004491"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F8F9FA;
+            font-family: 'Hanken Grotesk', sans-serif;
+            color: #1c1b1b;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-shadow {
+            box-shadow: 0px 10px 25px rgba(26, 26, 26, 0.05);
+        }
+        .side-panel-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+        .loading-spinner {
+            border: 2px solid rgba(0, 86, 179, 0.1);
+            border-left-color: #0056B3;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .face-grid-item:hover .delete-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen overflow-x-hidden">
+<!-- Sidebar Navigation -->
+
+<!-- Main Content -->
+<main class="flex-1 md: px-6 md:px-margin-desktop py-8 max-w-[1280px]">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Employee Management</h2>
+<nav class="flex items-center text-label-sm text-outline gap-2 mt-1">
+<span>Attendance</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Employees</span>
+</nav>
+</div>
+<button class="flex items-center gap-2 bg-primary hover:bg-primary-container text-white px-6 py-3 rounded-lg transition-all custom-shadow font-label-md text-label-md" onclick="toggleEnrollModal()">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Thêm nhân viên
+            </button>
+</header>
+<!-- Data Table Container -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden custom-shadow border border-outline-variant/30">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant/30">
+<tr>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase tracking-wider">Mã NV</th>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase tracking-wider">Họ tên</th>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase tracking-wider">Phòng ban</th>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase tracking-wider"># Ảnh</th>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase tracking-wider">Trạng thái</th>
+<th class="px-6 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4 font-body-md text-body-md font-bold">EV-0842</td>
+<td class="px-6 py-4 font-body-md text-body-md">Nguyen Van An</td>
+<td class="px-6 py-4 font-body-md text-body-md">Hardware Engineering</td>
+<td class="px-6 py-4 font-body-md text-body-md">5</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-label-sm font-bold bg-eco-green/10 text-eco-green">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 hover:bg-outline-variant/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4 font-body-md text-body-md font-bold">EV-0911</td>
+<td class="px-6 py-4 font-body-md text-body-md">Le Thi Minh</td>
+<td class="px-6 py-4 font-body-md text-body-md">Data Analytics</td>
+<td class="px-6 py-4 font-body-md text-body-md">3</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-label-sm font-bold bg-eco-green/10 text-eco-green">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 hover:bg-outline-variant/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-6 py-4 font-body-md text-body-md font-bold">EV-1023</td>
+<td class="px-6 py-4 font-body-md text-body-md">Tran Minh Hoang</td>
+<td class="px-6 py-4 font-body-md text-body-md">Eco-Compliance</td>
+<td class="px-6 py-4 font-body-md text-body-md">0</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-label-sm font-bold bg-surface-container-highest text-outline">Inactive</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 hover:bg-outline-variant/20 rounded-full transition-colors">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Placeholder -->
+<div class="px-6 py-4 border-t border-outline-variant/30 flex justify-between items-center bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-outline">Showing 1-10 of 42 employees</span>
+<div class="flex gap-2">
+<button class="p-2 rounded hover:bg-surface-container transition-colors text-outline">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 rounded hover:bg-surface-container transition-colors text-outline">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Enrollment Side Panel (Modal) -->
+<div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300 pointer-events-none" id="enrollOverlay" onclick="toggleEnrollModal()"></div>
+<div class="fixed right-0 top-0 h-full w-full max-w-md bg-surface-container-lowest z-50 transform translate-x-full side-panel-transition shadow-2xl flex flex-col border-l border-outline-variant/30" id="enrollPanel">
+<!-- Panel Header -->
+<div class="p-6 border-b border-outline-variant/20 flex items-center justify-between bg-surface-container-low">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="face">face</span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface">Đăng ký khuôn mặt</h3>
+</div>
+<button class="p-2 hover:bg-surface-container-highest rounded-full transition-colors" onclick="toggleEnrollModal()">
+<span class="material-symbols-outlined text-outline">close</span>
+</button>
+</div>
+<!-- Panel Body (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<!-- Basic Info Section -->
+<section class="space-y-4">
+<h4 class="font-label-md text-label-md text-outline uppercase tracking-wider">Thông tin nhân viên</h4>
+<div class="grid grid-cols-1 gap-4">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Mã NV</label>
+<input class="w-full px-4 py-2 bg-surface-gray border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="EV-XXXX" type="text">
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Họ tên</label>
+<input class="w-full px-4 py-2 bg-surface-gray border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="Nhập tên nhân viên" type="text">
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Phòng ban</label>
+<select class="w-full px-4 py-2 bg-surface-gray border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all appearance-none cursor-pointer">
+<option>Hardware Engineering</option>
+<option>Data Analytics</option>
+<option>Eco-Compliance</option>
+<option>Operations</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Biometric Registration Zone -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="font-label-md text-label-md text-outline uppercase tracking-wider">Biometric Registration</h4>
+<div class="hidden flex items-center gap-2 text-primary font-label-sm text-label-sm" id="processingIndicator">
+<div class="loading-spinner"></div>
+<span>Processing...</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 border-1.5 border-primary text-primary hover:bg-primary/5 px-4 py-3 rounded-lg transition-all font-label-md text-label-md">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+                        Chụp webcam
+                    </button>
+<button class="flex items-center justify-center gap-2 border-1.5 border-primary text-primary hover:bg-primary/5 px-4 py-3 rounded-lg transition-all font-label-md text-label-md">
+<span class="material-symbols-outlined" data-icon="upload">upload</span>
+                        Tải ảnh
+                    </button>
+</div>
+<!-- Face Gallery -->
+<div class="space-y-3">
+<div class="grid grid-cols-3 gap-3">
+<!-- Face 1: Valid -->
+<div class="relative group face-grid-item aspect-square bg-surface-container rounded-lg overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="A clean, professional close-up headshot of a person for facial recognition enrollment. The background is a flat, neutral grey. Lighting is high-key and even, emphasizing clear facial features. The overall aesthetic is clinical and high-tech, fitting for a security and attendance system in an EcoVision corporate office." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlWAlIwBCsEki71TXnR7w14um0MSlx_dhPuG3VMC95-QdPjgOXdHsoEkjXIcI595KxJGcyH1itYxCYk-S_0hmJq_8kqBF4l53Tq-gF2B2hjPIYwPl3y29GjDcDAxDzhVv3iN2B1M5HzgWJ7Pj5QnLEIp2L3fnDyAH5a1i0iA9MozXg5tBmKJJ3NOLI7aOEXmGmItR1BeOdxA_5FKrGeNPKTUAy4WQSYzjXtn87svO_lM-tO1hoBBdFVWYLy0FSVqDUybZ_08yTrg">
+<div class="absolute top-1 right-1 bg-white rounded-full p-0.5 shadow-sm">
+<span class="material-symbols-outlined text-eco-green text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="delete-overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-white" data-icon="delete">delete</span>
+</div>
+</div>
+<!-- Face 2: Warning -->
+<div class="relative group face-grid-item aspect-square bg-surface-container rounded-lg overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="A male portrait with slightly side-angled lighting, causing minor shadows on one side of the face. The setting is a minimalist office environment. The mood is professional but the lighting quality is suboptimal for biometric precision. High-tech interface overlays are absent here to focus on the raw image quality used for registration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF4KaXRnwQqBFBjxiZF1qXd6KV6XQEM8_OPbGL4LOR0Eb5mK1jNEclAvV9gjivYga5VN2ydpp-jjgjId85371vCMsOAq_no6OZVSWNjUfzIsGpiDKbNjbEjUahmjyoXEBgN-PsiEHVzuZgfDfe25CKiSNYSBPchrUlxNlEvid7IKkJzLOOfJpfTU2n7ZMqhrj7FfEogeq7F835g5nMScMOPahrgq8CZOpNaBqnWyNMSUkJALf3xvJe7B_g4ft5xW4MtEdNMW6v4g">
+<div class="absolute top-1 right-1 bg-white rounded-full p-0.5 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="delete-overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-white" data-icon="delete">delete</span>
+</div>
+</div>
+<!-- Face 3: Error -->
+<div class="relative group face-grid-item aspect-square bg-surface-container rounded-lg overflow-hidden border border-error-red/50">
+<div class="w-full h-full flex items-center justify-center bg-error-container/20">
+<span class="material-symbols-outlined text-error-red text-3xl">no_photography</span>
+</div>
+<div class="absolute top-1 right-1 bg-white rounded-full p-0.5 shadow-sm">
+<span class="material-symbols-outlined text-error-red text-[16px]" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div class="delete-overlay absolute inset-0 bg-black/40 opacity-0 transition-opacity flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-white" data-icon="delete">delete</span>
+</div>
+</div>
+</div>
+<!-- Quality Hint (R2 & R3) -->
+<div class="flex items-start gap-3 p-4 bg-info-blue/5 border-l-4 border-info-blue rounded-r-lg">
+<span class="material-symbols-outlined text-info-blue text-sm mt-0.5">info</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-tight">
+                            Recommend capturing <span class="font-bold text-primary">3+ photos</span> with clear lighting and different angles for optimal recognition accuracy.
+                        </p>
+</div>
+</div>
+</section>
+</div>
+<!-- Panel Footer -->
+<div class="p-6 border-t border-outline-variant/20 flex gap-3 bg-surface-container-low">
+<button class="flex-1 px-4 py-3 border border-outline-variant text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all font-label-md text-label-md" onclick="toggleEnrollModal()">
+                Hủy
+            </button>
+<button class="flex-2 px-8 py-3 bg-primary hover:bg-primary-container text-white rounded-lg transition-all custom-shadow font-label-md text-label-md flex items-center justify-center gap-2" id="saveBtn" onclick="simulateSave()">
+<span id="saveText">Lưu</span>
+</button>
+</div>
+</div>
+<!-- Notification Toast -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] transform translate-y-20 opacity-0 transition-all duration-500 pointer-events-none" id="toast">
+<div class="bg-eco-green text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md">Nhân viên đã được cập nhật thành công!</span>
+</div>
+</div>
+<script>
+        function toggleEnrollModal() {
+            const panel = document.getElementById('enrollPanel');
+            const overlay = document.getElementById('enrollOverlay');
+            
+            if (panel.classList.contains('translate-x-full')) {
+                // Open
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-0');
+                    overlay.classList.add('pointer-events-auto');
+                    panel.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                // Close
+                overlay.classList.add('opacity-0');
+                overlay.classList.remove('pointer-events-auto');
+                panel.classList.add('translate-x-full');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function simulateSave() {
+            const btn = document.getElementById('saveBtn');
+            const text = document.getElementById('saveText');
+            const processing = document.getElementById('processingIndicator');
+            
+            // Start Loading
+            btn.disabled = true;
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+            text.innerHTML = '<div class="loading-spinner border-white border-l-primary"></div>';
+            processing.classList.remove('hidden');
+            
+            // Simulate API Call
+            setTimeout(() => {
+                // Finish
+                btn.disabled = false;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                text.innerHTML = 'Lưu';
+                processing.classList.add('hidden');
+                
+                toggleEnrollModal();
+                showToast();
+            }, 2000);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 4000);
+        }
+    </script>
+</body></html>

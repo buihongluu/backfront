@@ -1,0 +1,366 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EcoVision - Quản lý Gói Model AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dcd9d9",
+                        "surface-gray": "#F8F9FA",
+                        "inverse-on-surface": "#f3f0ef",
+                        "tertiary-container": "#983c00",
+                        "on-secondary-fixed": "#370e00",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#7f2b00",
+                        "secondary": "#a73a00",
+                        "primary-container": "#0056b3",
+                        "inverse-primary": "#acc7ff",
+                        "background": "#fcf9f8",
+                        "surface-container-highest": "#e5e2e1",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "tertiary-fixed": "#ffdbcc",
+                        "secondary-fixed": "#ffdbce",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#acc7ff",
+                        "on-background": "#1c1b1b",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#115cb9",
+                        "surface-variant": "#e5e2e1",
+                        "secondary-container": "#fc763c",
+                        "primary-fixed": "#d7e2ff",
+                        "on-tertiary-container": "#ffc2a7",
+                        "secondary-fixed-dim": "#ffb599",
+                        "on-secondary-container": "#621f00",
+                        "on-surface-variant": "#424752",
+                        "success-green": "#388E3C",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c6d4",
+                        "on-tertiary-fixed": "#351000",
+                        "on-primary-container": "#bbd0ff",
+                        "surface-container": "#f0eded",
+                        "on-primary-fixed": "#001a40",
+                        "surface-container-high": "#eae7e7",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#003f87",
+                        "surface": "#fcf9f8",
+                        "surface-container-low": "#f6f3f2",
+                        "inverse-surface": "#313030",
+                        "info-blue": "#0288D1",
+                        "outline": "#727784",
+                        "error-red": "#D32F2F",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#722b00",
+                        "on-primary-fixed-variant": "#004491",
+                        "eco-green": "#2D6A4F",
+                        "on-surface": "#1c1b1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "hanken-grotesk": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .loading-spinner {
+            border: 2px solid rgba(0, 86, 179, 0.1);
+            border-left-color: #0056B3;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(210, 214, 228, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-surface-gray text-on-surface">
+<!-- SideNavBar from JSON Shell -->
+
+<main class=" min-h-screen">
+<!-- TopNavBar Content -->
+<header class="flex justify-between items-center px-margin-desktop h-16 w-full bg-surface-container-lowest shadow-sm sticky top-0 z-40">
+<div class="flex items-center gap-2">
+<nav class="flex items-center text-on-surface-variant font-label-sm gap-2">
+<span>AI</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-semibold">Models</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">help_outline</span></button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<div class="flex items-center gap-3">
+<span class="text-on-surface font-label-md">Support</span>
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<div class="p-margin-desktop max-w-container-max mx-auto space-y-8">
+<!-- Hero Title & Global Action -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-on-surface">Quản lý Gói Model AI</h2>
+<p class="text-on-surface-variant font-body-md mt-1">Cấu hình và giám sát các gói mô hình nhận diện thông minh.</p>
+</div>
+<div class="flex items-center gap-4">
+<!-- Validation State Spinner Example -->
+<div class="flex items-center gap-3 px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant/30">
+<div class="loading-spinner"></div>
+<span class="text-on-surface-variant font-label-sm">Đang xác thực gói...</span>
+</div>
+</div>
+</div>
+<!-- Warning Banner -->
+<div class="flex items-start gap-4 p-4 bg-error-container/20 border-l-4 border-error-red rounded-lg">
+<span class="material-symbols-outlined text-error-red">warning</span>
+<p class="text-on-surface font-label-md leading-relaxed">
+                    Tắt model sẽ dừng phân tích trên tất cả camera đang sử dụng model này. Hãy đảm bảo bạn đã cấu hình mô hình thay thế nếu cần thiết.
+                </p>
+</div>
+<!-- Main Data Table Container -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant/50">
+<tr>
+<th class="px-6 py-4 font-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Mô hình</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Tác vụ</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Phiên bản</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Ngưỡng (Threshold)</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Trạng thái</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant uppercase tracking-wider text-[11px] text-right">Thao tác</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">engineering</span>
+</div>
+<div>
+<div class="font-label-md text-on-surface">ppe-v1</div>
+<div class="text-label-sm text-on-surface-variant opacity-60">Personal Protective Equipment</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface font-body-md">detection</td>
+<td class="px-6 py-5">
+<span class="px-2 py-1 bg-surface-container-high rounded text-label-sm font-medium">v1.0.0</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-on-surface">0.5</span>
+<div class="w-16 h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 50%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-eco-green shadow-[0_0_8px_rgba(45,106,79,0.5)]"></span>
+<span class="font-label-md text-eco-green">Bật</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors text-on-surface-variant" onclick="toggleMenu('menu-1')">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+<div class="hidden absolute right-16 mt-2 w-48 bg-white border border-outline-variant/30 rounded-xl shadow-lg z-10 py-2" id="menu-1">
+<button class="w-full text-left px-4 py-2 text-label-md hover:bg-surface-gray flex items-center gap-3"><span class="material-symbols-outlined text-[18px]">tune</span> Sửa threshold</button>
+<button class="w-full text-left px-4 py-2 text-label-md hover:bg-surface-gray flex items-center gap-3"><span class="material-symbols-outlined text-[18px]">videocam</span> Gán camera</button>
+<button class="w-full text-left px-4 py-2 text-label-md hover:bg-surface-gray flex items-center gap-3"><span class="material-symbols-outlined text-[18px]">power_settings_new</span> Tắt/Bật</button>
+<button class="w-full text-left px-4 py-2 text-label-md hover:bg-surface-gray text-error flex items-center gap-3 border-t border-outline-variant/10 mt-1"><span class="material-symbols-outlined text-[18px]">delete</span> Xóa</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary/5 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">local_fire_department</span>
+</div>
+<div>
+<div class="font-label-md text-on-surface">fire-v2</div>
+<div class="text-label-sm text-on-surface-variant opacity-60">Fire &amp; Smoke Analysis</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface font-body-md">detection</td>
+<td class="px-6 py-5">
+<span class="px-2 py-1 bg-surface-container-high rounded text-label-sm font-medium">v2.0.0</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-on-surface">0.8</span>
+<div class="w-16 h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 80%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-eco-green shadow-[0_0_8px_rgba(45,106,79,0.5)]"></span>
+<span class="font-label-md text-eco-green">Bật</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right relative">
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-on-surface-variant/10 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">person_search</span>
+</div>
+<div>
+<div class="font-label-md text-on-surface">person-v1</div>
+<div class="text-label-sm text-on-surface-variant opacity-60">Human Flow Analytics</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-on-surface font-body-md">detection</td>
+<td class="px-6 py-5">
+<span class="px-2 py-1 bg-surface-container-high rounded text-label-sm font-medium">v1.0.0</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-on-surface">0.4</span>
+<div class="w-16 h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 40%"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline shadow-[0_0_4px_rgba(0,0,0,0.1)]"></span>
+<span class="font-label-md text-on-surface-variant">Tắt</span>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-6 py-4 bg-surface-container-low/30 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="text-label-sm text-on-surface-variant">Đang hiển thị 3 trên 3 gói model có sẵn</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline-variant rounded-lg text-label-sm disabled:opacity-50" disabled="">Trước</button>
+<button class="px-3 py-1 bg-primary text-white rounded-lg text-label-sm">1</button>
+<button class="px-3 py-1 border border-outline-variant rounded-lg text-label-sm">Sau</button>
+</div>
+</div>
+</section>
+<!-- Metrics / Bento Grid Insight -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-panel p-6 rounded-xl flex flex-col gap-4">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-label-md uppercase tracking-wide">Tài nguyên GPU</span>
+</div>
+<div class="text-headline-lg font-bold text-on-surface">64%</div>
+<div class="w-full bg-outline-variant/20 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[64%]"></div>
+</div>
+<p class="text-label-sm text-on-surface-variant">Model 'fire-v2' đang chiếm dụng tài nguyên cao nhất.</p>
+</div>
+<div class="glass-panel p-6 rounded-xl flex flex-col gap-4">
+<div class="flex items-center gap-3 text-eco-green">
+<span class="material-symbols-outlined">verified</span>
+<span class="font-label-md uppercase tracking-wide">Độ tin cậy TB</span>
+</div>
+<div class="text-headline-lg font-bold text-on-surface">92.4%</div>
+<p class="text-label-sm text-on-surface-variant">Dựa trên dữ liệu thực tế từ 124 camera đã gán.</p>
+</div>
+<div class="glass-panel p-6 rounded-xl flex flex-col gap-4">
+<div class="flex items-center gap-3 text-secondary">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="font-label-md uppercase tracking-wide">Cập nhật gần nhất</span>
+</div>
+<div class="text-label-md font-bold text-on-surface">14/05/2024 - 09:30</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-primary-container text-white flex items-center justify-center text-[10px]">Admin</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-secondary-container text-white flex items-center justify-center text-[10px]">AI</div>
+</div>
+<p class="text-label-sm text-on-surface-variant">Hệ thống vừa hoàn tất xác thực gói 'ppe-v1'.</p>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function toggleMenu(id) {
+            const menu = document.getElementById(id);
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // Close menus on outside click
+        window.onclick = function(event) {
+            if (!event.target.matches('.material-symbols-outlined')) {
+                const dropdowns = document.querySelectorAll('[id^="menu-"]');
+                dropdowns.forEach(d => d.classList.add('hidden'));
+            }
+        }
+    </script>
+</body></html>

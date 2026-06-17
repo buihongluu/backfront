@@ -1,0 +1,326 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EcoVision VMS - Camera Kho Vật Tư</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#1c1b1b",
+                    "info-blue": "#0288D1",
+                    "on-primary": "#ffffff",
+                    "secondary": "#a73a00",
+                    "surface": "#fcf9f8",
+                    "primary-fixed": "#d7e2ff",
+                    "on-secondary-container": "#621f00",
+                    "secondary-fixed": "#ffdbce",
+                    "on-background": "#1c1b1b",
+                    "secondary-fixed-dim": "#ffb599",
+                    "primary": "#003f87",
+                    "on-tertiary-container": "#ffc2a7",
+                    "outline": "#727784",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb694",
+                    "on-primary-fixed": "#001a40",
+                    "surface-container-low": "#f6f3f2",
+                    "surface-tint": "#115cb9",
+                    "on-tertiary-fixed-variant": "#7b2f00",
+                    "surface-variant": "#e5e2e1",
+                    "inverse-primary": "#acc7ff",
+                    "tertiary-fixed": "#ffdbcc",
+                    "inverse-surface": "#313030",
+                    "surface-container": "#f0eded",
+                    "tertiary-container": "#983c00",
+                    "tertiary": "#722b00",
+                    "primary-container": "#0056b3",
+                    "outline-variant": "#c2c6d4",
+                    "on-surface-variant": "#424752",
+                    "eco-green": "#2D6A4F",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#eae7e7",
+                    "surface-dim": "#dcd9d9",
+                    "error": "#ba1a1a",
+                    "surface-gray": "#F8F9FA",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-primary-container": "#bbd0ff",
+                    "on-secondary-fixed-variant": "#7f2b00",
+                    "secondary-container": "#fc763c",
+                    "on-tertiary-fixed": "#351000",
+                    "primary-fixed-dim": "#acc7ff",
+                    "on-primary-fixed-variant": "#004491",
+                    "background": "#fcf9f8",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "on-secondary-fixed": "#370e00",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "success-green": "#388E3C",
+                    "surface-container-lowest": "#ffffff",
+                    "error-red": "#D32F2F"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-desktop": "40px",
+                    "base": "8px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #fcf9f8;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pulse-red {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 86, 179, 0.1);
+        }
+    </style>
+</head>
+<body class="text-on-surface min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-8">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">EcoVision VMS</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors cursor-pointer active:opacity-80">Dashboard</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 cursor-pointer active:opacity-80">Cameras</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors cursor-pointer active:opacity-80">Analytics</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-colors cursor-pointer active:opacity-80">Logs</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-success-green pulse-red"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Real-time Connected</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">settings</span>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold overflow-hidden border border-outline-variant">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxBUw_9ApsfdYBfSGrb3mCxdLbcEpUPuw9Wd97HpPEdYc4N2g5GI-VnAIEiW1WrlEqVPKyjNEEGxzaspshiCqvorFuj5XHmG1L_0cvq9Oe_bvbhV0qbtfLtFHolv-AV3SKStMPpa66zl9s5rV8d-0Lkz0ThY2DUv3tq2-ktbS_PKrYatR119Cxc67zu6lJevn5Pn4r5gdHD0LqMNebSF-sMf9Rrk8XOWPw-PHh-20f1VCtBr5tL2tDwyaGHmDmtFtlesAW9HEUHQ">
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+
+<!-- Main Content Canvas -->
+<main class="lg: mt-16 p-margin-desktop min-h-[calc(100vh-64px)]">
+<!-- Header Area -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div class="space-y-1">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Camera Kho Vật Tư</h1>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-error-container text-on-error-container">
+<span class="w-1.5 h-1.5 mr-1.5 rounded-full bg-error pulse-red"></span>
+                        LIVE
+                    </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Vị trí: Tầng 1, Khu vực nhập hàng • ID: CAM-77291</p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md hover:opacity-90 transition-all active:scale-95 shadow-md" onclick="showToast()">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+                Chụp Snapshot thủ công
+            </button>
+</div>
+<!-- Tab Navigation -->
+<div class="flex border-b border-outline-variant mb-8 gap-8">
+<button class="pb-4 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Thông tin</button>
+<button class="pb-4 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Cấu hình</button>
+<button class="pb-4 font-label-md text-label-md text-primary border-b-2 border-primary">Snapshot</button>
+<button class="pb-4 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Lịch sử</button>
+</div>
+<!-- Snapshot Tab Content -->
+<div class="space-y-10">
+<!-- Snapshot Configuration Card -->
+<section class="max-w-3xl">
+<div class="glass-card rounded-xl p-8 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface text-[24px]">Snapshot định kỳ</h2>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+<span class="ml-3 font-label-md text-label-md text-on-surface-variant">Bật</span>
+</label>
+</div>
+<div class="flex flex-col md:flex-row gap-6 items-end">
+<div class="flex-1 space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Tần suất chụp</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-body-md text-on-surface-variant">Mỗi</span>
+<input class="w-full pl-14 pr-16 py-3 bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-md" min="5" type="number" value="60">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 font-body-md text-on-surface-variant">giây</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant/70 italic">Lưu ý: Tối thiểu 5 giây (Rule R2).</p>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all active:scale-95">
+                            Lưu cấu hình
+                        </button>
+</div>
+</div>
+</section>
+<!-- Snapshot Gallery -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-lg text-headline-lg text-on-surface text-[24px]">Thư viện Snapshot</h2>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+</div>
+</div>
+<div class="bento-grid">
+<!-- Snapshot Card 1 -->
+<div class="group relative bg-white border border-outline-variant rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-resolution security camera snapshot showing a modern industrial warehouse filled with organized wooden pallets and metal shelving under bright overhead lights. The image has a clean, professional aesthetic with neutral tones and sharp details, reflecting a secure and monitored environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMYFZwYw5lEqHN4usNJzquM8z7uMyPJ4KkC7__AL91MDBHc1DC1B15UaXbd2dfXK3Nu5gSuxTt-w-7nrwl5dLregNb-9nGP7XJlndhXFh3gek7WQ4X67xwFKN7dgek3Bwn4h-50R7QQiSl-kphgvLOPiS84LXZszm3gnvTWGtvPYOYdUO_ZSi4I_b0LvGpC-majMT50i472rbNPcj2DG0tCRHNcpxBvuFmznd41e1NionRENSbUfc__2Py7RWzNUD2eTPvb1JQZA">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+<button class="bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="p-4 space-y-1">
+<div class="flex justify-between items-start">
+<p class="font-label-md text-label-md text-on-surface">Camera Kho Vật Tư</p>
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2024-05-20 14:30:05</p>
+</div>
+</div>
+<!-- Snapshot Card 2 -->
+<div class="group relative bg-white border border-outline-variant rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Security footage capture of a logistics hub corridor with sleek grey flooring and industrial lighting. The atmosphere is crisp and technological, rendered in a corporate photography style. Shadows are soft and the environment looks meticulously maintained and constantly monitored." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJBji219LDZKHKBYFTRo_mss3sCvLJdWQBLRSgVygPwF8z0zw2BpXBkdqN2ghtOw-ZOanV7ABp500AoChXoZEWOVYHTpKH1ij3LJARNzZFuLWdIsIKDwXZLKNT-uYpmhL9w1kbgU1Nn23enQXAJ_Z4j-gd1Um5I8OvLpgAnCP_xWusotrGf4fB7cU7GEsbDlaiUMkGwf07KWHu59AtFCOxt_JS3WiMOMX84rjctr9uwxB6qw68XrOI2XvI9E4TqsFRqHkym_LkSg">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+<button class="bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="p-4 space-y-1">
+<p class="font-label-md text-label-md text-on-surface">Camera Kho Vật Tư</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2024-05-20 14:25:02</p>
+</div>
+</div>
+<!-- Snapshot Card 3 -->
+<div class="group relative bg-white border border-outline-variant rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Wide angle snapshot of a storage facility featuring rows of heavy-duty racking systems. The image is captured with a high-definition wide lens, displaying architectural precision. The lighting is balanced, emphasizing the clean lines and organizational efficiency of the warehouse space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbXgS44YjoTUbxIzl1h81snv6W4enbkhyXkfXa5jdIDLtA5rkGWux6tAVtUAw4_VrvYWKSPXA-JEjR5dOtR7HbarchtkT8xjzeFXvaftBAjxlkAqSHx_2c7w5MVtpTlVszFdk7D5J1tYZMOPJVSrm34pozMk4M_nYMUtA2L3GZSkMllUzobgTnN0mDQVhW8kMkGNF-Krl5kQgWNXfZB2f-fut1LwmAGsk04gWLuOubj0cF_r_ex6iWAOI7jNMwZ8eUs-PNfV3mVA">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+<button class="bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="p-4 space-y-1">
+<p class="font-label-md text-label-md text-on-surface">Camera Kho Vật Tư</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2024-05-20 14:20:01</p>
+</div>
+</div>
+<!-- Snapshot Card 4 -->
+<div class="group relative bg-white border border-outline-variant rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="aspect-video relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Industrial interior snapshot capturing a loading dock area during the daytime. Natural light filters through high windows, creating a bright and transparent look. The composition is modern and geometric, focusing on the infrastructure and security equipment of a cutting-edge environmental firm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKtai3LF2718UyG555MaA33QZDZDcHOIDvsSNq-bMgFnjUtBfm8DlPaOj4Sol6jmmYFumLDHBlEQkwpftH7i9jwBP4Q6F7N56iFgAUYJ7zXhB9lfZIqJqayouMcAkMwVoNl4TCc2CNY_DiHlPDNkZXBOy3Vyl5Poujpm90VKIDnx6viK0zlpNtdeggUEnjw3SJ7SEqNdQVKrGzoZoLXX9fHultxEv-brcqIy7g7X6UKGtnAaEaGyIEvF2aGpzafwMOVKb5uSod9A">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+<button class="bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="p-4 space-y-1">
+<p class="font-label-md text-label-md text-on-surface">Camera Kho Vật Tư</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2024-05-20 14:15:10</p>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="border border-outline text-on-surface-variant px-6 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container transition-all">
+                        Tải thêm kết quả
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<!-- Success Toast Notification -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] transform translate-y-24 opacity-0 transition-all duration-500 pointer-events-none" id="toast">
+<div class="bg-on-surface text-surface flex items-center gap-4 px-6 py-4 rounded-xl shadow-2xl min-w-[320px]">
+<span class="material-symbols-outlined text-eco-green">check_circle</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md">Đã lưu snapshot</p>
+</div>
+<button class="text-primary-fixed font-label-md hover:underline active:opacity-70 pointer-events-auto">Xem</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-surface pointer-events-auto" onclick="hideToast()">close</button>
+</div>
+</div>
+<script>
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+            
+            setTimeout(() => {
+                hideToast();
+            }, 4000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+            toast.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        }
+
+        // Simulating the interaction for the snapshot capture button
+        document.querySelector('button[onclick="showToast()"]').addEventListener('click', function() {
+            // Interactive feedback could go here
+            console.log('Snapshot triggered manually');
+        });
+    </script>
+</body></html>

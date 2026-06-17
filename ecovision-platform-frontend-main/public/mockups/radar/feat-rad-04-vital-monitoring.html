@@ -1,0 +1,402 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EcoVision | Realtime Vital Monitoring</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-red": "#D32F2F",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#313030",
+                        "eco-green": "#2D6A4F",
+                        "success-green": "#388E3C",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container-high": "#eae7e7",
+                        "on-tertiary-container": "#ffc2a7",
+                        "secondary": "#a73a00",
+                        "error-container": "#ffdad6",
+                        "primary": "#003f87",
+                        "tertiary": "#722b00",
+                        "background": "#fcf9f8",
+                        "surface-tint": "#115cb9",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#fc763c",
+                        "surface-container-low": "#f6f3f2",
+                        "tertiary-container": "#983c00",
+                        "info-blue": "#0288D1",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d7e2ff",
+                        "on-surface-variant": "#424752",
+                        "inverse-primary": "#acc7ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#0056b3",
+                        "on-secondary-fixed-variant": "#7f2b00",
+                        "surface-dim": "#dcd9d9",
+                        "secondary-fixed-dim": "#ffb599",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#370e00",
+                        "on-primary-fixed-variant": "#004491",
+                        "primary-fixed-dim": "#acc7ff",
+                        "on-primary-fixed": "#001a40",
+                        "surface-bright": "#fcf9f8",
+                        "surface": "#fcf9f8",
+                        "on-error-container": "#93000a",
+                        "surface-gray": "#F8F9FA",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary-container": "#621f00",
+                        "on-surface": "#1c1b1b",
+                        "surface-variant": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "on-background": "#1c1b1b",
+                        "on-primary-container": "#bbd0ff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "outline": "#727784",
+                        "outline-variant": "#c2c6d4",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "secondary-fixed": "#ffdbce",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .sparkline-container {
+            height: 40px;
+            width: 100%;
+            mask-image: linear-gradient(to right, black 80%, transparent 100%);
+        }
+        .heartbeat {
+            animation: beat 1s infinite;
+        }
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-surface-gray text-on-surface antialiased">
+<!-- TopNavBar Implementation -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline flex justify-between items-center px-margin-desktop h-16 w-full fixed top-0 z-50">
+<div class="flex items-center gap-8">
+<img alt="EcoVision Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGFip34zmwEcVNIXHIaCmMti82T0j6K-J2hvMWrpecSIDPg1N8QsrSyxumshv2nxU2179vkI4ip8iDQtux-hTSuLvDmegEDbGLZ2QlbylyS92nqZucg7kqM2yQghzmtbE1q96rtyTQO2HRUMWXRwOyEwivJkrG9RZQB6HxWErtsyHMvDnEYBjXfqA6NWegNehRM_cjC4lYDfZCeRmDq7d-V-gOOhYjBxfRDu2npcTrZi4TG1YmXqxc1W0obs6GxMj6FNfmsp9VOw">
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors px-3 py-1 rounded" href="#">Device Registry</a>
+<a class="text-primary dark:text-primary-fixed border-b-2 border-primary font-label-md text-label-md px-3 py-1" href="#">Live Monitoring</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors px-3 py-1 rounded" href="#">Historical Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full cursor-pointer hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-[20px] text-primary">notifications</span>
+<div class="w-2 h-2 bg-error rounded-full -mt-2 -ml-3 border border-surface"></div>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-[18px]">person</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface hidden lg:block">System Admin</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar Implementation (Semantic Mapping: Live Monitoring) -->
+
+<!-- Main Content -->
+<main class="xl: pt-24 px-margin-desktop pb-16">
+<!-- Breadcrumb and Filters -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mb-1">
+<span>Radar</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Monitor</span>
+</nav>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Vital Monitoring Dashboard</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative group">
+<button class="flex items-center gap-4 bg-white border border-outline-variant px-4 py-2.5 rounded-lg shadow-sm hover:border-primary transition-all">
+<span class="font-label-md text-label-md">All Rooms</span>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<!-- Mock Dropdown -->
+<div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-outline-variant hidden group-hover:block z-10">
+<div class="p-2">
+<div class="px-3 py-2 hover:bg-surface-container rounded cursor-pointer font-label-md text-label-md">Floor 1</div>
+<div class="px-3 py-2 hover:bg-surface-container rounded cursor-pointer font-label-md text-label-md">Floor 2</div>
+<div class="px-3 py-2 hover:bg-surface-container rounded cursor-pointer font-label-md text-label-md">Floor 3</div>
+</div>
+</div>
+</div>
+<button class="bg-surface-container-highest px-4 py-2.5 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-surface-dim transition-all">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                    Filter
+                </button>
+</div>
+</div>
+<!-- Monitoring Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Card P.301: Normal -->
+<div class="bg-white rounded-xl border border-outline-variant p-6 shadow-[0px_10px_25px_rgba(26,26,26,0.05)] hover:border-primary cursor-pointer transition-all">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-headline-lg text-body-lg font-bold">P.301</h3>
+<p class="text-on-surface-variant text-label-md font-label-md">Patient A</p>
+</div>
+<span class="px-3 py-1 bg-eco-green/10 text-eco-green rounded-full font-label-sm text-label-sm flex items-center gap-1">
+<span class="w-2 h-2 bg-eco-green rounded-full"></span>
+                        Normal
+                    </span>
+</div>
+<div class="space-y-6">
+<!-- Vital: Heart Rate -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary heartbeat" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-end mb-1">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Heart Rate</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg leading-none">72</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">bpm</span>
+</div>
+</div>
+<div class="sparkline-container bg-surface-container-low rounded relative overflow-hidden">
+<svg class="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 40">
+<path d="M0,25 L10,24 L20,26 L30,15 L40,28 L50,22 L60,24 L70,18 L80,25 L90,20 L100,23" fill="none" stroke="#0056B3" stroke-width="2" vector-effect="non-scaling-stroke" style="stroke-dasharray: 118.864; stroke-dashoffset: 118.864;"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Vital: Respiration -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="air">air</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-end mb-1">
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Respiration</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg leading-none">16</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">/min</span>
+</div>
+</div>
+<div class="sparkline-container bg-surface-container-low rounded relative overflow-hidden">
+<svg class="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 40">
+<path d="M0,20 Q10,10 20,20 T40,20 T60,20 T80,20 T100,20" fill="none" stroke="#0056B3" stroke-width="2" vector-effect="non-scaling-stroke" style="stroke-dasharray: 114.779; stroke-dashoffset: 114.779;"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Posture -->
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="man">man</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Current Posture</span>
+</div>
+<span class="font-bold text-on-surface">Standing</span>
+</div>
+</div>
+</div>
+<!-- Card P.302: Warning/Abnormal -->
+<div class="bg-white rounded-xl border-2 border-error-red p-6 shadow-[0px_10px_25px_rgba(211,47,47,0.1)] hover:brightness-[0.98] cursor-pointer transition-all relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-error-red"></div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-headline-lg text-body-lg font-bold text-error-red">P.302</h3>
+<p class="text-on-surface-variant text-label-md font-label-md">Patient B</p>
+</div>
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full font-label-sm text-label-sm flex items-center gap-1 animate-pulse">
+<span class="w-2 h-2 bg-error rounded-full"></span>
+                        Abnormal
+                    </span>
+</div>
+<div class="space-y-6">
+<!-- Vital: Heart Rate (Abnormal) -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-error-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-error-red heartbeat" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-end mb-1">
+<span class="text-error-red font-label-sm text-label-sm font-bold uppercase tracking-wider">Heart Rate</span>
+<div class="flex items-baseline gap-1 text-error-red">
+<span class="font-headline-lg text-headline-lg leading-none">110</span>
+<span class="font-label-sm text-label-sm">bpm</span>
+</div>
+</div>
+<div class="sparkline-container bg-error-container/30 rounded relative overflow-hidden">
+<svg class="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 40">
+<path d="M0,30 L5,10 L10,35 L15,5 L20,38 L25,12 L30,35 L40,5 L50,30 L60,10 L70,35 L80,5 L100,20" fill="none" stroke="#D32F2F" stroke-width="2" vector-effect="non-scaling-stroke" style="stroke-dasharray: 324.373; stroke-dashoffset: 324.373;"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Vital: Respiration (Warning) -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-secondary-container/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="air">air</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-end mb-1">
+<span class="text-secondary font-label-sm text-label-sm font-bold uppercase tracking-wider">Respiration</span>
+<div class="flex items-baseline gap-1 text-secondary">
+<span class="font-headline-lg text-headline-lg leading-none">22</span>
+<span class="font-label-sm text-label-sm">/min</span>
+</div>
+</div>
+<div class="sparkline-container bg-secondary-container/10 rounded relative overflow-hidden">
+<svg class="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 40">
+<path d="M0,20 Q5,5 10,20 T20,20 T30,20 T40,20 T50,20 T60,20 T70,20 T80,20 T90,20 T100,20" fill="none" stroke="#a73a00" stroke-width="2" vector-effect="non-scaling-stroke" style="stroke-dasharray: 188.422; stroke-dashoffset: 188.422;"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Posture -->
+<div class="flex items-center justify-between p-3 bg-error-container/20 rounded-lg">
+<div class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined" data-icon="airline_seat_flat">airline_seat_flat</span>
+<span class="font-label-md text-label-md">Current Posture</span>
+</div>
+<span class="font-bold text-error-red">Lying</span>
+</div>
+</div>
+</div>
+<!-- Card P.303: No Data / Disconnected -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant border-dashed p-6 flex flex-col items-center justify-center text-center group transition-all">
+<div class="w-20 h-20 bg-surface-container-highest rounded-full flex items-center justify-center mb-4 text-on-surface-variant group-hover:bg-error-container group-hover:text-error transition-all">
+<span class="material-symbols-outlined text-[48px]" data-icon="wifi_off">wifi_off</span>
+</div>
+<h3 class="font-headline-lg text-body-lg font-bold text-on-surface-variant">P.303</h3>
+<p class="text-error-red font-bold text-label-md mb-6">Radar Disconnected</p>
+<div class="w-full space-y-3 opacity-50 pointer-events-none">
+<div class="h-2 bg-surface-container-highest rounded w-3/4 mx-auto"></div>
+<div class="h-2 bg-surface-container-highest rounded w-1/2 mx-auto"></div>
+<div class="h-10 bg-surface-container-highest rounded-lg w-full mt-4"></div>
+</div>
+<button class="mt-6 text-primary font-bold text-label-md underline underline-offset-4 hover:text-primary-container transition-colors">
+                    Attempt Reconnect
+                </button>
+</div>
+<!-- Additional Placeholder Cards to show Grid density -->
+<div class="bg-white rounded-xl border border-outline-variant p-6 opacity-60">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-headline-lg text-body-lg font-bold">P.304</h3>
+<p class="text-on-surface-variant text-label-md">Waiting for patient...</p>
+</div>
+</div>
+<div class="h-48 flex items-center justify-center border-2 border-dashed border-outline-variant rounded-lg">
+<span class="material-symbols-outlined text-outline-variant text-[32px]">add</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Security Note -->
+<footer class="xl: px-margin-desktop py-8 border-t border-outline-variant bg-surface-container-lowest">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-4">
+<div class="p-2 bg-info-blue/10 rounded">
+<span class="material-symbols-outlined text-info-blue text-[20px]" data-icon="encrypted">encrypted</span>
+</div>
+<p class="text-label-sm text-on-surface-variant max-w-md">
+<span class="font-bold text-on-surface">Restricted Health Information.</span> All data displayed is encrypted in transit and at rest. Unauthorized access to vital history is logged.
+                </p>
+</div>
+<div class="flex gap-6 text-label-sm font-label-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">HIPAA Compliance</a>
+<span class="text-outline-variant">|</span>
+<span>System Status: <span class="text-eco-green font-bold">Operational</span></span>
+</div>
+</div>
+</footer>
+<!-- Mobile Bottom Navigation Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant flex justify-around p-3 z-50">
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="inventory">inventory</span>
+<span class="text-[10px] font-label-sm">Registry</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="monitor_heart" style="font-variation-settings: 'FILL' 1;">monitor_heart</span>
+<span class="text-[10px] font-label-sm">Monitor</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-[10px] font-label-sm">Analytics</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-label-sm">Settings</span>
+</div>
+</nav>
+<script>
+        // Micro-interactions for live status simulation
+        document.querySelectorAll('.sparkline-container svg path').forEach(path => {
+            const length = path.getTotalLength();
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
+            path.animate([
+                { strokeDashoffset: length },
+                { strokeDashoffset: 0 }
+            ], {
+                duration: 2000,
+                easing: 'ease-in-out',
+                fill: 'forwards'
+            });
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EcoVision - Thêm Camera Mới</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fcf9f8",
+                        "surface-dim": "#dcd9d9",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "primary": "#003f87",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#ffdbce",
+                        "on-tertiary": "#ffffff",
+                        "error-red": "#D32F2F",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#fcf9f8",
+                        "on-secondary-fixed-variant": "#7f2b00",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-container-highest": "#e5e2e1",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-container": "#f0eded",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "success-green": "#388E3C",
+                        "on-error": "#ffffff",
+                        "secondary": "#a73a00",
+                        "primary-fixed-dim": "#acc7ff",
+                        "on-secondary-container": "#621f00",
+                        "tertiary-container": "#983c00",
+                        "on-surface-variant": "#424752",
+                        "outline-variant": "#c2c6d4",
+                        "surface-tint": "#115cb9",
+                        "surface": "#fcf9f8",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#acc7ff",
+                        "outline": "#727784",
+                        "on-surface": "#1c1b1b",
+                        "on-tertiary-fixed": "#351000",
+                        "inverse-surface": "#313030",
+                        "secondary-fixed-dim": "#ffb599",
+                        "info-blue": "#0288D1",
+                        "eco-green": "#2D6A4F",
+                        "surface-gray": "#F8F9FA",
+                        "on-tertiary-container": "#ffc2a7",
+                        "primary-fixed": "#d7e2ff",
+                        "on-secondary-fixed": "#370e00",
+                        "on-background": "#1c1b1b",
+                        "surface-container-high": "#eae7e7",
+                        "secondary-container": "#fc763c",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e5e2e1",
+                        "on-primary-container": "#bbd0ff",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary-fixed-variant": "#004491",
+                        "primary-container": "#0056b3",
+                        "on-primary-fixed": "#001a40",
+                        "tertiary": "#722b00",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .backdrop-blur-custom { backdrop-filter: blur(8px); background-color: rgba(28, 27, 27, 0.3); }
+        .glass-panel { background: rgba(255, 255, 255, 0.95); box-shadow: 0px 10px 25px rgba(26, 26, 26, 0.05); }
+        .pulse-red { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex overflow-hidden h-screen">
+<!-- Sidebar Navigation -->
+
+<!-- Main Content Canvas -->
+<main class=" flex-grow flex flex-col relative overflow-hidden">
+<!-- Header -->
+<header class="flex justify-between items-center px-margin-desktop w-full h-16 bg-surface shadow-sm z-20">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-lg text-[24px] text-primary font-bold">Quản lý Camera</h1>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-high rounded-full">
+<span class="w-2 h-2 rounded-full bg-error pulse-red"></span>
+<span class="text-[12px] font-bold tracking-wider text-on-surface-variant">[ ● Realtime ]</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-lg border border-outline-variant/20 w-80">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full ml-2" placeholder="Tìm kiếm camera..." type="text">
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-all" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-all" data-icon="settings">settings</span>
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xs">AV</div>
+</div>
+</div>
+</header>
+<!-- Listing Content (Background for Dialog) -->
+<div class="p-margin-desktop flex-grow overflow-auto">
+<div class="bg-white rounded-xl border border-outline-variant/30 overflow-hidden">
+<div class="p-6 flex justify-between items-center border-b border-outline-variant/30">
+<h3 class="font-headline-lg text-[18px]">Danh sách Camera (12)</h3>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 font-label-md transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        Thêm camera mới
+                    </button>
+</div>
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-4 font-label-md text-on-surface-variant border-b border-outline-variant/30">Trạng thái</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant border-b border-outline-variant/30">Tên Camera</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant border-b border-outline-variant/30">Địa chỉ IP / RTSP</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant border-b border-outline-variant/30">Vị trí</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant border-b border-outline-variant/30">Hành động</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-success-green rounded-full"></span>
+<span class="text-body-md text-success-green font-medium">Online</span>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md">Cổng Chính - Entrance 01</td>
+<td class="px-6 py-4 font-body-md text-on-surface-variant">rtsp://192.168.1.10:554/live</td>
+<td class="px-6 py-4 font-body-md">Khu vực A - Tầng 1</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer" data-icon="more_vert">more_vert</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-success-green rounded-full"></span>
+<span class="text-body-md text-success-green font-medium">Online</span>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md">Hành Lang Tây - Hallway W2</td>
+<td class="px-6 py-4 font-body-md text-on-surface-variant">rtsp://192.168.1.12:554/live</td>
+<td class="px-6 py-4 font-body-md">Khu vực C - Tầng 2</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer" data-icon="more_vert">more_vert</span>
+</td>
+</tr>
+<!-- Row 3 (Offline) -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-error-red rounded-full"></span>
+<span class="text-body-md text-error-red font-medium">Offline</span>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md">Nhà Kho - Storage S3</td>
+<td class="px-6 py-4 font-body-md text-on-surface-variant">rtsp://192.168.1.45:554/live</td>
+<td class="px-6 py-4 font-body-md">Khu vực D - Hầm B1</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer" data-icon="more_vert">more_vert</span>
+</td>
+</tr>
+<!-- Repeat filler rows -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-success-green rounded-full"></span>
+<span class="text-body-md text-success-green font-medium">Online</span>
+</div>
+</td>
+<td class="px-6 py-4 font-label-md">Bãi Đỗ Xe - Parking P1</td>
+<td class="px-6 py-4 font-body-md text-on-surface-variant">rtsp://192.168.1.88:554/live</td>
+<td class="px-6 py-4 font-body-md">Ngoài trời</td>
+<td class="px-6 py-4">
+<span class="material-symbols-outlined text-outline hover:text-primary cursor-pointer" data-icon="more_vert">more_vert</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- DIALOG OVERLAY: Add Camera -->
+<div class="absolute inset-0 z-50 backdrop-blur-custom flex items-center justify-center p-6">
+<div class="glass-panel w-full max-w-4xl rounded-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+<!-- Modal Header -->
+<div class="px-8 py-6 flex justify-between items-center border-b border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed-dim/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="video_call">video_call</span>
+</div>
+<h2 class="font-headline-lg text-[22px] text-on-surface">Thêm camera mới</h2>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="flex flex-col lg:flex-row">
+<!-- Left: Form Fields -->
+<div class="flex-1 p-8 space-y-6">
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-md text-on-surface">Tên camera</label>
+<input class="w-full p-3 rounded-lg border border-outline focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all font-body-md" placeholder="Nhập tên camera" type="text">
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-on-surface">Vị trí</label>
+<input class="w-full p-3 rounded-lg border border-outline focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all font-body-md" placeholder="Nhập khu vực, tầng..." type="text">
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-on-surface">RTSP URL</label>
+<div class="relative">
+<input class="w-full p-3 pr-40 rounded-lg border border-outline focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all font-body-md" id="rtsp-input" placeholder="rtsp://admin:password@192.168.1.100:554/live" type="text">
+<button class="absolute right-2 top-2 bottom-2 px-4 bg-primary-container hover:bg-primary transition-colors text-white rounded-md text-[13px] font-bold flex items-center gap-2" id="check-connection">
+<span class="material-symbols-outlined text-[16px]" data-icon="sync">sync</span>
+                                    Kiểm tra kết nối
+                                </button>
+</div>
+<p class="text-[12px] text-outline italic">Ví dụ: rtsp://username:password@ip_address:port/path</p>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Bật AI (Phân tích thông minh)</span>
+<span class="text-[12px] text-outline">Tự động nhận diện phương tiện và người</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value="">
+<div class="w-11 h-6 bg-outline rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-on-surface">FPS phân tích AI</label>
+<div class="relative">
+<select class="w-full p-3 rounded-lg border border-outline appearance-none focus:border-primary focus:ring-4 focus:ring-primary/20 transition-all font-body-md">
+<option>1 FPS (Tiết kiệm)</option>
+<option>2 FPS</option>
+<option selected="">5 FPS (Tiêu chuẩn)</option>
+<option>8 FPS</option>
+<option>10 FPS (Chính xác cao)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Right: Preview Area -->
+<div class="w-full lg:w-[320px] bg-surface-container p-8 flex flex-col items-center">
+<label class="font-label-md text-on-surface mb-4 self-start">Preview (Xem trước)</label>
+<div class="w-full aspect-video rounded-xl bg-black border-2 border-dashed border-outline-variant flex items-center justify-center relative overflow-hidden group" id="preview-box">
+<!-- State 1: Idle/Disconnected -->
+<div class="flex flex-col items-center text-outline group-hover:text-on-surface-variant transition-colors" id="preview-idle">
+<span class="material-symbols-outlined text-[48px] mb-2" data-icon="videocam_off">videocam_off</span>
+<p class="text-[13px] text-center px-4">Chưa có kết nối để hiển thị bản xem trước</p>
+</div>
+<!-- State 2: Success (Hidden by default) -->
+<div class="hidden absolute inset-0" id="preview-success">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="absolute top-2 left-2 z-10 px-2 py-1 bg-eco-green text-white text-[10px] font-bold rounded flex items-center gap-1 uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> Connected
+                                </div>
+<img class="w-full h-full object-cover" data-alt="A high-quality surveillance camera viewpoint showing a modern warehouse interior with clear overhead lighting. The visual style is crisp, professional, and slightly desaturated, with subtle digital overlays indicating AI detection bounding boxes around containers. The overall aesthetic is clean, corporate, and focuses on technological precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd5N6Ll_dWqiwaKcSu05Bq0X9MEXOH-3bzPDpgnKT-ZploT7-6lS5ru2E_KjrnDOHNUhfl7o0iw-A45vlx5_ylE7j5FrX1Fr2pfG9SjRCS301405l1PLlNRVHKOeHBUcO-G0mxrxHa3HaXR-VU14k_2o-MFtnZYiEDhN73Sj6J97lKY1aGpZ0RqCVv3Nhs6a0uHoVrR5iW-WtO_weLn726fuAmym1iQ2cME3IIbz-V3VuvxqAN6vOjad5Ai0sL3FqGdXKM0TXbwA">
+</div>
+<!-- State 3: Loading (Hidden by default) -->
+<div class="hidden flex flex-col items-center gap-3" id="preview-loading">
+<div class="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+<p class="text-white text-sm">Đang kiểm tra kết nối...</p>
+</div>
+</div>
+<div class="mt-6 w-full space-y-3">
+<div class="flex items-center gap-2 text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+<span>Codec hỗ trợ: H.264, H.265</span>
+</div>
+<div class="flex items-center gap-2 text-[12px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="info">info</span>
+<span>Độ phân giải tối đa: 4K (3840x2160)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Actions -->
+<div class="px-8 py-6 bg-surface-container-low border-t border-outline-variant/30 flex justify-end gap-4">
+<button class="px-6 py-2.5 rounded-lg border border-outline hover:bg-surface-container transition-colors font-label-md text-on-surface">
+                        Hủy
+                    </button>
+<button class="px-8 py-2.5 rounded-lg bg-primary opacity-50 cursor-not-allowed text-white font-label-md transition-all flex items-center gap-2" disabled="" id="save-btn">
+<span class="material-symbols-outlined text-[20px]" data-icon="save">save</span>
+                        Lưu cấu hình
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions and UI state simulation
+        const checkBtn = document.getElementById('check-connection');
+        const saveBtn = document.getElementById('save-btn');
+        const previewIdle = document.getElementById('preview-idle');
+        const previewLoading = document.getElementById('preview-loading');
+        const previewSuccess = document.getElementById('preview-success');
+        const previewBox = document.getElementById('preview-box');
+
+        checkBtn.addEventListener('click', () => {
+            // Show loading
+            previewIdle.classList.add('hidden');
+            previewLoading.classList.remove('hidden');
+            checkBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            checkBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin" data-icon="sync">sync</span> Đang thử...';
+
+            // Simulate network latency
+            setTimeout(() => {
+                previewLoading.classList.add('hidden');
+                previewSuccess.classList.remove('hidden');
+                previewBox.classList.remove('border-dashed');
+                previewBox.classList.add('border-solid', 'border-eco-green');
+                
+                // Enable Save button (Rule R3)
+                saveBtn.disabled = false;
+                saveBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                saveBtn.classList.add('hover:bg-primary/90', 'shadow-lg', 'shadow-primary/20');
+                
+                // Update check button state
+                checkBtn.classList.remove('opacity-70', 'cursor-not-allowed', 'bg-primary-container');
+                checkBtn.classList.add('bg-eco-green');
+                checkBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]" data-icon="done">done</span> Đã kết nối';
+            }, 2200);
+        });
+    </script>
+</body></html>

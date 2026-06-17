@@ -1,0 +1,23 @@
+name: ecovision-frontend
+
+# Frontend chạy độc lập. Cần network ngoài "ecovision-net" (để proxy /api tới backend).
+
+services:
+  frontend:
+    build: .
+    container_name: ecovision-frontend
+    restart: unless-stopped
+    environment:
+      BACKEND_ORIGIN: http://backend:8000
+      FACE_ORIGIN: http://ai-worker:8090
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    command: npm run dev -- --host
+    networks: [ecovision-net]
+
+networks:
+  ecovision-net:
+    external: true
